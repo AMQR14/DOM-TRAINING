@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+#stage {
+  width: 100%;
+  height: 100vh;
+}
+
+.box {
+  position: absolute;
+}
+
+.create {
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  background-color: white;
+}
+
+.info {
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  background-color: white;
+}
+
+#create-head-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#create-head-container > p {
+  margin-top: 0;
+}
+
+#create-foot-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#create-foot-container > button {
+  margin: 6px 0px 0px 0px;
+}
+
+#create-close:hover {
+  cursor: pointer;
+}
+
+.info {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+}
+
+.info > p {
+  margin: 0;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.info > p:hover {
+  margin: 0;
+  overflow: hidden;
+  background-color: rgb(230, 230, 230);
+  border-radius: 4px;
+  transition: all;
+}
+
+.info > div {
+  background-color: black;
+  width: 0.5px;
+  height: auto;
+}
+
+.connect {
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  background-color: white;
+}
+
+#connect-head-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#connect-head-container > p {
+  margin-top: 0;
+}
+
+#connect-foot-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#connect-foot-container > button {
+  margin: 6px 0px 0px 0px;
+}
+
+#connect-close:hover {
+  cursor: pointer;
+}
+
+#input-container > input {
+  width: 120px;
+  padding: 5px;
+}
+
+#input-container > select {
+  width: 120px;
+  padding: 5px;
+}
+
+.distance {
+  background-color: white;
+  padding: 4px;
+  border-radius: 5px;
+  width: fit-content;
+  height: fit-content;
+  border: 2px solid;
+  display: none; /* hidden by default */
+}
+
+.distance.show {
+  display: block;
+}
+
+#map {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
