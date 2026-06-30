@@ -1,5 +1,98 @@
 const c = document.getElementById("stage");
 
+const viewport = document.getElementById("viewport");
+const world = document.getElementById("world");
+
+let zoom = 1;
+let panX = 0;
+let panY = 0;
+const MIN_ZOOM = 0.5;
+const MAX_ZOOM = 5;
+
+function applyTransform() {
+  world.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+}
+
+function screenToWorld(clientX, clientY) {
+  const rect = viewport.getBoundingClientRect();
+  const x = (clientX - rect.left - panX) / zoom;
+  const y = (clientY - rect.top - panY) / zoom;
+  return { x, y };
+}
+
+function zoomAt(clientX, clientY, newZoom) {
+  newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newZoom));
+  const rect = viewport.getBoundingClientRect();
+  const px = clientX - rect.left;
+  const py = clientY - rect.top;
+
+  const worldX = (px - panX) / zoom;
+  const worldY = (py - panY) / zoom;
+
+  zoom = newZoom;
+  panX = px - worldX * zoom;
+  panY = py - worldY * zoom;
+
+  applyTransform();
+}
+
+viewport.addEventListener(
+  "wheel",
+  function (e) {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+
+    const delta = -e.deltaY * 0.001;
+    zoomAt(e.clientX, e.clientY, zoom * (1 + delta));
+  },
+  { passive: false },
+);
+
+document.addEventListener("keydown", function (e) {
+  if (!e.ctrlKey) return;
+
+  if (e.key === "+" || e.key === "=") {
+    e.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, zoom * 1.2);
+  }
+
+  if (e.key === "-") {
+    e.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, zoom / 1.2);
+  }
+});
+
+let isPanning = false;
+let panStartX = 0;
+let panStartY = 0;
+let panOriginX = 0;
+let panOriginY = 0;
+
+viewport.addEventListener("mousedown", function (e) {
+  if (e.target.closest(".box, .info, .connect, .create")) return;
+
+  isPanning = true;
+  panStartX = e.clientX;
+  panStartY = e.clientY;
+  panOriginX = panX;
+  panOriginY = panY;
+});
+
+window.addEventListener("mousemove", function (e) {
+  if (!isPanning) return;
+  panX = panOriginX + (e.clientX - panStartX);
+  panY = panOriginY + (e.clientY - panStartY);
+  applyTransform();
+});
+
+window.addEventListener("mouseup", function () {
+  isPanning = false;
+});
+
+applyTransform();
+
 let creating = false;
 
 let connecting = null;
@@ -195,7 +288,7 @@ function getPin() {
     c.appendChild(info);
 
     const rect = info.getBoundingClientRect();
-    info.style.left = `${pin.x - rect.width / 2}px`;
+    info.style.left = `${pin.x - rect.width / zoom / 2}px`;
 
     info.querySelector(".delete-pin").addEventListener("click", function (e) {
       const updated = pins.filter((item) => item.id !== pin.id);
@@ -274,8 +367,8 @@ function getPin() {
 
         const rect = connect.getBoundingClientRect();
 
-        connect.style.left = `${midX - rect.width / 2}px`;
-        connect.style.top = `${midY - rect.height / 2}px`;
+        connect.style.left = `${midX - rect.width / zoom / 2}px`;
+        connect.style.top = `${midY - rect.height / zoom / 2}px`;
 
         connect
           .querySelector("#connect-close")
@@ -357,8 +450,7 @@ c.addEventListener("dblclick", function (e) {
   creating = true;
 
   const box = document.createElement("div");
-  const x = e.clientX;
-  const y = e.clientY;
+  const { x, y } = screenToWorld(e.clientX, e.clientY);
   const size = 50;
 
   box.className = "box";

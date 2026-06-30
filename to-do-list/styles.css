@@ -1,0 +1,176 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(91, 91, 91);
+}
+
+#container {
+  border: 1px solid rgb(216, 216, 216);
+  height: 100vh;
+  border-radius: 10px;
+  background-color: rgb(242, 242, 242);
+  padding: 10px;
+}
+
+#head-container {
+  padding: 10px;
+  border: 1px solid rgb(216, 216, 216);
+  /* margin: 10px; */
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+#head-container > h1 {
+  margin: 0px;
+  font-size: 1.6em;
+}
+
+#main-container {
+  /* border: 2px solid black; */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  border: 1px solid rgb(216, 216, 216);
+  height: fit-content;
+  width: auto;
+  padding: 0px 10px 0px 10px;
+  background-color: white;
+  transition: all ease-in 0.1s;
+}
+
+.task:hover {
+  background-color: rgb(240, 240, 240);
+  border: 1.2px solid rgb(183, 183, 183);
+}
+
+.task > button {
+  display: none;
+  transition: all ease-in 0.1s;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  border: 1px solid rgb(216, 216, 216);
+  background-color: rgb(237, 237, 237);
+}
+
+#task-left {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#task-left > input {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  border-radius: 5px;
+  background: none;
+  width: 100%;
+}
+
+#task-left:hover input {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  border-radius: 5px;
+}
+
+#task-left > input:focus {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  outline: none;
+}
+
+.task > button:hover {
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  border: 1px solid rgb(216, 216, 216);
+  background-color: rgb(255, 255, 255);
+}
+
+#task-left-create {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#task-left-create > input {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  border-radius: 5px;
+  background: none;
+  width: 100%;
+}
+
+#task-left-create:hover input {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  border-radius: 5px;
+}
+
+#task-left-create > input:focus {
+  margin: 16px 0px 16px 0px;
+  border: none;
+  font-size: medium;
+  outline: none;
+}
+
+.task:hover button {
+  display: block;
+}
+
+#check-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgb(91, 91, 91);
+  transition: all ease-in 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+#check-button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+#create {
+  margin: 20px;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgb(216, 216, 216);
+  transition: all ease-in 0.1s;
+}
+
+#create:hover {
+  background-color: rgb(240, 240, 240);
+  border: 1.2px solid rgb(183, 183, 183);
+}
+
+#create > h1 {
+  margin: 0;
+  padding: 10px 20px 10px 20px;
+}
+
+#task-count {
+    justify-self: end;
+  font-size: 0.8em;
+}
